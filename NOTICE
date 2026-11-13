@@ -1,0 +1,25 @@
+menu-tango -- third-party components
+=====================================
+
+Everything not listed here is the Tango authors' own work under the MIT licence in LICENSE: the source files
+say so in their SPDX headers.
+
+The framework at sys/ is a separate repository (sys-tango), included as a git submodule; its own LICENSE and
+NOTICE cover it.
+
+The launcher bitstream (fpga/build/build_menu_vproc.sh: the scaler, its DDR3 frame buffers, the video and audio
+processing) is built with sys-tango files under the GNU General Public License: tango_video_geo.v, tango_shmask.v
+and tango_audio_filter.v, GPL-2.0-or-later (derived from MiSTer; sys-tango's NOTICE).  A menu.bin built from this
+repository is therefore a combined work distributed under the terms of the GNU General Public License, version 2
+or (at your option) any later version; the launcher's own code stays under MIT.  The build also takes PLL_INIT and
+the DDR3 Memory Interface IP from the user's Gowin installation, which keep Gowin's terms (sys-tango's NOTICE).
+
+
+MiSTer text in files that are otherwise MIT
+-------------------------------------------
+  - fpga/rtl/tango_core_menu.v: the CONF_STR name "MENU", by which MiSTer's firmware (and the Tango firmware)
+    recognises the menu core, and a comment quoting the start of Menu_MiSTer's CONF_STR, "MENU;UART31250,MIDI;"
+    (github.com/MiSTer-devel/Menu_MiSTer, menu.sv; its header: GPL version 2 or (at your option) any later version).
+  - the launcher's CONF_STR (fpga/rtl/tango_core_menu.v, TANGO_VIDEO_CONF) carries the framework's Video page
+    entries, whose text comes from sys-tango (tango_video_opts.vh; sys-tango's NOTICE, "MiSTer data in files that
+    are otherwise MIT", names their sources in Template_MiSTer's Template.sv and the MiSTer cores).

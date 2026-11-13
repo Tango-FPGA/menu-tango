@@ -1,0 +1,22 @@
+# Gowin
+fpga/**/impl/
+*.gprj.user
+*.rpt.html
+fpga/build/out/
+
+# Bitstreams: archived in bitstreams/ (fpga/build/build_menu_vproc.sh, TANGO_ARCHIVE), never in git
+bitstreams/
+*.fs
+*-dirty.*
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors / OS
+.vscode/
+.DS_Store
+*.swp
+
+# Bitstream .bin conversions (sys/build_tools/fs2bin.py) live in the archive too
+tango_*.bin
