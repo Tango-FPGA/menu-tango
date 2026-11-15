@@ -1,6 +1,6 @@
 # menu-tango -- the Tango launcher
 
-**Version 2026-11-13** (date code `20261113`)
+**Version 2026-11-15** (date code `20261115`)
 
 menu-tango is the **launcher** of the Tango FPGA system for the **Sipeed Tang Console 138K**: the FPGA core the Tango
 firmware loads from the SD card at power-on, as MiSTer loads its menu core. Its picture is the Tango test pattern; over
@@ -32,7 +32,7 @@ BL616 firmware that loads it and runs its pages is [firmware-tango](https://gith
 ## Installing
 
 The launcher bitstream is in this repository's **`releases/`** folder, one file per release named
-`menu_<YYYYMMDD>.bin` (this version: `releases/menu_20261113.bin`). Take the latest (the newest date) and copy it
+`menu_<YYYYMMDD>.bin` (this version: `releases/menu_20261115.bin`). Take the latest (the newest date) and copy it
 to the root of the SD card as **`/menu.bin`**. At power-on the firmware loads `/menu.fs` if the card has one, else
 `/menu.bin`: remove an old `/menu.fs`, or the firmware keeps loading that.
 
