@@ -12,9 +12,9 @@
 // launcher's picture goes through ascal and the firmware's video processing.  There is no other video path: a build
 // without TANGO_VIDEO_ASCAL stops at elaboration (module TANGO_LAUNCHER_IS_A_SCALER_CORE does not exist).
 //
-// The picture: the Tango test pattern (tango_test_pattern, spec tools/osd-model/backgrounds.py test_pattern), computed
+// The picture: the Tango test pattern (tango_test_pattern; its spec: tango_test_pattern.v's header), computed
 // on a 720p beam of the core's own (CLK_PIX, hdmi.sv's numbering: x 0..1649, y 0..749, 60.0 Hz) and sent to the scaler
-// as a NATIVE 640 x 360 frame: the pixels with even x and even y (backgrounds.py test_pattern_native).  ascal scales
+// as a NATIVE 640 x 360 frame: the pixels with even x and even y (the reference model's test_pattern_native).  ascal scales
 // it x2 back to 1280 x 720 (16:9, Aspect ratio Original); 1-px lines of the pattern become 2 px.  640 x 360 x 24 bits at
 // 60 Hz is ~41.5 MB/s written into the frame buffers (the SDRAM's port C; the DDR3 in the card build), as much read back.
 // Native timing (MiSTer's emu video ports; sys/tango_core_ports.vh RULE): CE_PIXEL is high for one clock per native
@@ -23,6 +23,11 @@
 // MiSTer's video_mixer does).  Native line: 640 active + 185 blanking (HS at 695 .. 714); native frame: 360 active +
 // 15 blanking lines (VS on native lines 362 .. 364).  The odd beam lines carry no native pixel (no CE_PIXEL).
 //==============================================================================
+// BUILD_DATE: "v<yymmdd>" from the build script (sys/board/console138k/build_core.sh, TANGO_BUILD_DATE), the CONF_STR's
+// V tag as in every Tango core; a bench that defines none gets "sim".
+`ifndef BUILD_DATE
+`define BUILD_DATE "sim"
+`endif
 `default_nettype none
 module tango_core (
     `include "tango_core_ports.vh"
@@ -30,7 +35,7 @@ module tango_core (
     localparam CONF_STR = {
         "MENU;;",
         `TANGO_VIDEO_CONF,                  // the framework's Aspect ratio, Scale, Scanlines (the launcher UI shows no page)
-        "V,v260928"
+        "V,",`BUILD_DATE
     };
     tango_conf_rom #(.CONF_STR(CONF_STR)) u_conf (.clk(CLK_PIX), .addr(conf_addr), .q(conf_char));
 `ifndef TANGO_VIDEO_ASCAL

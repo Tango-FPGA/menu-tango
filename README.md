@@ -1,6 +1,6 @@
 # menu-tango -- the Tango launcher
 
-**Version 2026-11-15** (date code `20261115`)
+**Version 2026-11-18** (date code `20261118`)
 
 menu-tango is the **launcher** of the Tango FPGA system for the **Sipeed Tang Console 138K**: the FPGA core the Tango
 firmware loads from the SD card at power-on, as MiSTer loads its menu core. Its picture is the Tango test pattern; over
@@ -32,7 +32,7 @@ BL616 firmware that loads it and runs its pages is [firmware-tango](https://gith
 ## Installing
 
 The launcher bitstream is in this repository's **`releases/`** folder, one file per release named
-`menu_<YYYYMMDD>.bin` (this version: `releases/menu_20261115.bin`). Take the latest (the newest date) and copy it
+`menu_<YYYYMMDD>.bin` (this version: `releases/menu_20261118.bin`). Take the latest (the newest date) and copy it
 to the root of the SD card as **`/menu.bin`**. At power-on the firmware loads `/menu.fs` if the card has one, else
 `/menu.bin`: remove an old `/menu.fs`, or the firmware keeps loading that.
 
@@ -41,7 +41,10 @@ the BL616 stays the PC's USB debugger): power the board from its other USB-C por
 
 `menu.bin` is a raw bitstream (the `.bin` the firmware streams into the FPGA over JTAG); `fpga/build/build_menu_vproc.sh`
 makes it from the Gowin `.fs` with `sys/build_tools/fs2bin.py`. Its menu string (CONF_STR) begins `MENU`, which is how
-the firmware knows it is the launcher, and ends `V,v260928`.
+the firmware knows it is the launcher, and ends `V,v<yymmdd>`: the build date (`sys/board/console138k/build_core.sh`
+writes it, today's date or `TANGO_BUILD_DATE=<yymmdd>`). System Settings shows it as the menu core's version tag and
+About as `Menu core v<yymmdd>`. The bitstream of release `20261118` was built on `2026-11-18` (`TANGO_BUILD_DATE` = that
+date as `yymmdd`).
 
 ## What the launcher core does
 
